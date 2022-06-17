@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Projeyi klonlandıktan sonra
+`npm install node-modules` diyerek modülleri indiriniz ve `ng build` ile de angular kütüphanelerini projede build ediniz.
+
+## Projeyi ayağa kaldırmak için
+`ng serve` komutu ile çalıştırın ve [localhost](http://localhost:4200/)'u tarayıcınızda açın.
+
+Ana sayfa haricinde giriş yap sayfası [burada](http://localhost:4200/login) çalışıyor ve ürün eklemek için de [ekleme](http://localhost:4200/products/add) sayfası bu linkte çalışıyor.
