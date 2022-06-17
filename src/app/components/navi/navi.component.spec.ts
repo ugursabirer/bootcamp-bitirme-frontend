@@ -11,7 +11,9 @@ describe('NaviComponent', () => {
       declarations: [ NaviComponent ]
     })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(NaviComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

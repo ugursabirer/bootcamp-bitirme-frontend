@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product';
-import { Observable } from 'rxjs';
-import { ProductService } from 'src/app/services/product.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Product } from 'src/app/models/product';
+import { CartService } from 'src/app/services/cart.service';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
-  styleUrls: ['./product.component.css']
+  styleUrls: ['./product.component.css'],
 })
 export class ProductComponent implements OnInit {
+  products: Product[] = [];
+  dataLoaded = false;
+  filterText = "";
 
-  products: Product[] = []
-  dataLoaded = false
-  filterText = ""
-
-  constructor(private productService: ProductService, private activatedRoute: ActivatedRoute) { }
+  constructor(private productService: ProductService,
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService,
+    private cartService: CartService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -30,15 +33,24 @@ export class ProductComponent implements OnInit {
   getProducts() {
     this.productService.getProducts().subscribe(response => {
       this.products = response.data
-      this.dataLoaded = true
+      this.dataLoaded = true;
     })
   }
 
   getProductsByCategory(categoryId: number) {
     this.productService.getProductsByCategory(categoryId).subscribe(response => {
       this.products = response.data
-      this.dataLoaded = true
+      this.dataLoaded = true;
     })
   }
 
+  addToCart(product: Product) {
+    if (product.productId === 1) {
+      this.toastrService.error("Hata", "Bu ürün sepete eklenemez")
+    } else {
+      this.toastrService.success("Sepete eklendi", product.productName)
+      this.cartService.addToCart(product);
+    }
+
+  }
 }
